@@ -114,6 +114,15 @@ def factorial(n):
       i = i+1
     return factorial
 
+# Return all links from http://xkcd.com/353 using Python 2 interpreter
+
+def get_page(url):
+    try:
+        import urllib
+        return urllib.urlopen(url).read()
+    except:
+        return "error"
+
 # Modify the get_next_target procedure so that
 # if there is a link it behaves as before, but
 # if there is no link tag in the input string,
@@ -128,3 +137,16 @@ def get_next_target(page):
     end_quote = page.find('"', start_quote + 1)
     url = page[start_quote + 1:end_quote]
     return url, end_quote
+
+# Print All Links
+
+def print_all_links(page):
+    while True:
+        url, endpos = get_next_target(page)
+        if url:
+            print url
+            page = page[endpos:]
+        else:
+            break
+print_all_links(get_page('http://xkcd.com/353'))
+    
